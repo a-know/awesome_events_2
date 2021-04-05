@@ -1,0 +1,19 @@
+name: Heroku push for staging
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.7.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} # $ heroku authorizations:create
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
