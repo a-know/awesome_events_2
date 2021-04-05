@@ -6,7 +6,7 @@ on:
       - '!main'
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -14,6 +14,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.7.8
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}} # $ heroku authorizations:create
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} # https://dashboard.heroku.com/account
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
