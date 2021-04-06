@@ -15,3 +15,8 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// https://qiita.com/1024xx4/items/56172d140d7208230e32
+// https://qiita.com/kazutosato/items/d47b7705ee545de4cb1a
+import "bootstrap"
+import "../stylesheets/application"
