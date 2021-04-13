@@ -20,6 +20,7 @@ jobs:
     needs: [build]
     env:
       RAILS_ENV: staging
+      RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
       GITHUB_CLIENT_ID: GITHUB_CLIENT_ID # dummy
       GITHUB_CLIENT_SECRET: GITHUB_CLIENT_SECRET # dummy
     environment:
