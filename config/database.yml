@@ -24,8 +24,10 @@ staging:
   <<: *default
   adapter: postgresql
   database: db/staging.postgresql
+  url: <%= ENV['DATABASE_URL'] %>
 
 production:
   <<: *default
   adapter: postgresql
   database: db/production.postgresql
+  url: <%= ENV['DATABASE_URL'] %>
