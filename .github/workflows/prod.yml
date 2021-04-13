@@ -23,6 +23,7 @@ jobs:
           bin/rails db:migrate
   deploy:
     runs-on: ubuntu-latest
+    needs: [build]
     environment:
       name: production
     steps:
