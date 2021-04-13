@@ -16,6 +16,17 @@ jobs:
         with:
           path: vendor/bundle
           key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+      - uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Setup yarn and node
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+          apt-get update -qq
+          apt-get install -y nodejs yarn
+          yarn install
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
