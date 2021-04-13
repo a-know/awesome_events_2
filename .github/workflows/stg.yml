@@ -8,8 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
     environment:
-      name: staging
+      name: test
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
