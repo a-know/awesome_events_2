@@ -21,6 +21,7 @@ jobs:
     env:
       RAILS_ENV: staging
       RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
       GITHUB_CLIENT_ID: GITHUB_CLIENT_ID # dummy
       GITHUB_CLIENT_SECRET: GITHUB_CLIENT_SECRET # dummy
     environment:
