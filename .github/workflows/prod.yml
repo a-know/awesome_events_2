@@ -49,7 +49,6 @@ jobs:
         run: bundle install
       - name: Setup Database
         run: |
-          bin/rails db:create
           bin/rails db:migrate
       - uses: akhileshns/heroku-deploy@v3.7.8
         with:
