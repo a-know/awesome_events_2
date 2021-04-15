@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  formats:
+    default: "%Y-%m-%d (%a) %H:%M:%S.%z"
+    long: "%Y-%m-%d (%a) %H:%M"
+    short: "%m-%d (%a) %H:%M"
   hello: "Hello world"
   activerecord:
     models:
