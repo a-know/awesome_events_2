@@ -31,3 +31,13 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      event: Event
+    attributes:
+      event:
+        name: Name
+        place: Place
+        start_at: Start Date
+        end_at: End Date
+        content: Content
