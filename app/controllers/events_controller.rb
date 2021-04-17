@@ -28,6 +28,14 @@ class EventsController < ApplicationController
     end
   end
 
+  # By using the `destroy!` method instead of the `destroy` method, RecordNotDestroyed will be raised when the deletion is aborted by a hook method called at the time of deletion.
+  # `destroy` メソッドではなく `destroy!` メソッドを利用することで、削除時に呼ばれるフックメソッドで削除を中断するなどした場合に RecordNotDestroyed を raise させる。
+  def destroy
+    @event = current_user.created_events.find(params[:id])
+    @event.destroy!
+    redirect_to root_path, notice: "Event deletion completed."
+  end
+
   private
 
   def event_params
