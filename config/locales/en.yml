@@ -39,6 +39,7 @@ en:
   activerecord:
     models:
       event: Event
+      ticket: Ticket
     attributes:
       event:
         name: Name
@@ -46,3 +47,5 @@ en:
         start_at: Start Date
         end_at: End Date
         content: Content
+      ticket:
+        comment: Comment
