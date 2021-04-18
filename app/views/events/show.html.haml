@@ -1,0 +1,54 @@
+%h1.mt-3.mb-3= @event.name
+.row
+  .col-8
+    .card.mb-2
+      %h5.card-header Event Content
+      .card-body
+        %p.card-text= @event.content
+    .card.mb-2
+      %h5.card-header Start Date
+      .card-body
+        %p.card-text= "#{l(@event.start_at, format: :long)} - #{l(@event.end_at, format: :long)}"
+    .card.mb-2
+      %h5.card-header Place
+      .card-body
+        %p.card-text= @event.place
+    .card.mb-2
+      %h5.card-header Owner
+      .card-body
+        = link_to(url_for_github(@event.owner), class: "card-link") do
+          = image_tag @event.owner.image_url, width: 50, height: 50
+          = "@#{@event.owner.name}"
+  .col-4
+    - if @event.created_by?(current_user)
+      = link_to "Edit this Event", edit_event_path(@event), class: "btn btn-info btn-lg btn-block"
+      = link_to "Delete this Event", event_path(@event), class: "btn btn-danger btn-lg btn-block", method: :delete, data: { confirm: "Are you sure to delete this event?" }
+    - if @ticket
+      = link_to "Cancel my participation", event_ticket_path(@event, @ticket), method: :delete, class: "btn btn-warning btn-lg btn-block"
+    - elsif logged_in?
+      %button.btn-primary.btn-lg.btn-block{ "data-toggle": "modal", "data-target": "#createTicket" } Join this Event
+      %div.modal.fade#createTicket
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %h4.modal-title#dialogHeader Comment
+              %button.close{ type: "button", "data-dismiss": "modal" } &times;
+            = form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f|
+              .modal-body
+                #createTicketErrors
+                = f.text_field :comment, class: "form-control"
+              .modal-footer
+                %button.btn.btn-default{ type: "button", "data-dismiss": "modal" } Cancel
+                = f.button "Submit", class: "btn btn-primary"
+    - else
+      = link_to "Join this Event", new_event_ticket_path(@event), class: "btn btn-primary btn-lg btn-block"
+    %hr
+    .card.mb-2
+      %h5.card-header Participants
+      %ul.list-group.list-group-flush
+        - @tickets.each do |ticket|
+          %li.list-group-item
+            = link_to(url_for_github(ticket.user), class: "card-link") do
+              = image_tag ticket.user.image_url, width: 20, height: 20
+              = "@#{ticket.user.name}"
+            = ticket.comment

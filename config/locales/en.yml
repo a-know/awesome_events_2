@@ -30,4 +30,22 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      default: "%Y-%m-%d (%a) %H:%M:%S.%z"
+      long: "%Y-%m-%d (%a) %H:%M"
+      short: "%m-%d (%a) %H:%M"
   hello: "Hello world"
+  activerecord:
+    models:
+      event: Event
+      ticket: Ticket
+    attributes:
+      event:
+        name: Name
+        place: Place
+        start_at: Start Date
+        end_at: End Date
+        content: Content
+      ticket:
+        comment: Comment
