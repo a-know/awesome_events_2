@@ -1,0 +1,14 @@
+%h1.mt-3 Confirm retirement
+#errors
+
+%p If you complete retirement, all data related you are deleted.
+%p But, if you match below conditions, you can not complete retirement.
+
+%ul
+  %li
+    If you have non-ended public event
+  %li
+    If you join to non-ended event
+%hr
+
+= link_to "Retirement", retirements_path, mthod: :post, remote: true, class: "btn btn-danger", data: { confirm: "Are you sure to retirement?" }
