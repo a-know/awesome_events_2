@@ -23,7 +23,9 @@
     - if @event.created_by?(current_user)
       = link_to "Edit this Event", edit_event_path(@event), class: "btn btn-info btn-lg btn-block"
       = link_to "Delete this Event", event_path(@event), class: "btn btn-danger btn-lg btn-block", method: :delete, data: { confirm: "Are you sure to delete this event?" }
-    - if logged_in?
+    - if @ticket
+      = link_to "Cancel my participation", event_ticket_path(@event, @ticket), method: :delete, class: "btn btn-warning btn-lg btn-block"
+    - elsif logged_in?
       %button.btn-primary.btn-lg.btn-block{ "data-toggle": "modal", "data-target": "#createTicket" } Join this Event
       %div.modal.fade#createTicket
         .modal-dialog

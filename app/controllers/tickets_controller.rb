@@ -13,4 +13,11 @@ class TicketsController < ApplicationController
       redirect_to event, notice: "You joined this Event."
     end
   end
+
+  def destroy
+    puts params
+    ticket = current_user.tickets.find_by!(event_id: params[:event_id])
+    ticket.destroy!
+    redirect_to event_path(params[:event_id]), notice: "Cancel your participation of this Event is completed."
+  end
 end
