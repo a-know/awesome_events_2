@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <title>AwesomeEvents</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+  </head>
+  <body>
+    <header class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container">
+        <%= link_to "AwesomeEvents", root_path, class: "navbar-brand mr-auto" %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to "Create new Event", new_event_path, class: "nav-link" %>
+          </li>
+          <% if logged_in? %>
+            <li class="nav-item"></li>
+            <%= link_to "Retirement", new_retirements_path, class: "nav-link" %>
+            <li class="nav-item"></li>
+            <%= link_to "Logout", logout_path, class: "nav-link", method: :delete %>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login via GitHub", "/auth/github", class: "nav-link", method: :post %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+    <div class="container">
+      <% if flash.notice %>
+        <div class="alert alert-success">
+          <%= flash.notice %>
+        </div>
+      <% end %>
+      <% if flash.alert  %>
+        <div class="alert alert-danger">
+          <%= flash.alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
