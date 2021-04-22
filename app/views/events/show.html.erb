@@ -1,0 +1,96 @@
+<h1 class="mt-3 mb-3">
+  <%= @event.name %>
+</h1>
+<div class="row">
+  <div class="col-8">
+    <div class="card mb-2">
+      <h5 class="card-header">Event Content</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <%= @event.content %>
+        </p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <h5 class="card-header">Start Date</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <%= "#{l(@event.start_at, format: :long)} - #{l(@event.end_at, format: :long)}" %>
+        </p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <h5 class="card-header">Place</h5>
+      <div class="card-body">
+        <p class="card-text">
+          <%= @event.place %>
+        </p>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <h5 class="card-header">Owner</h5>
+      <div class="card-body">
+        <% if @event.owner %>
+          <%= link_to(url_for_github(@event.owner), class: "card-link") do %>
+            <%= image_tag @event.owner.image_url, width: 50, height: 50 %>
+            <%= "@#{@event.owner.name}" %>
+          <% end %>
+        <% else %>
+          This user is retired.
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <% if @event.created_by?(current_user) %>
+      <%= link_to "Edit this Event", edit_event_path(@event), class: "btn btn-info btn-lg btn-block" %>
+      <%= link_to "Delete this Event", event_path(@event), class: "btn btn-danger btn-lg btn-block", method: :delete, data: { confirm: "Are you sure to delete this event?" } %>
+    <% end %>
+    <% if @ticket %>
+      <%= link_to "Cancel my participation", event_ticket_path(@event, @ticket), method: :delete, class: "btn btn-warning btn-lg btn-block" %>
+    <% elsif logged_in? %>
+      <button class="btn-primary btn-lg btn-block" data-toggle="modal" data-target="#createTicket">Join this Event</button>
+      <div class="modal fade" id="createTicket">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="dialogHeader">Comment</h4>
+              <button class="close" type="button" data-dismiss="modal">&times;</button>
+            </div>
+            <%= form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f| %>
+              <div class="modal-body">
+                <div id="createTicketErrors"></div>
+                <%= f.text_field :comment, class: "form-control" %>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                <%= f.button "Submit", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Join this Event", new_event_ticket_path(@event), class: "btn btn-primary btn-lg btn-block" %>
+    <% end %>
+    <hr/>
+    <div class="card mb-2">
+      <h5 class="card-header">Participants</h5>
+      <ul class="list-group list-group-flush">
+        <% @tickets.each do |ticket| %>
+          <li class="list-group-item">
+            <% if ticket.user %>
+              <%= link_to(url_for_github(ticket.user), class: "card-link") do %>
+                <%= image_tag ticket.user.image_url, width: 20, height: 20 %>
+                <%= "@#{ticket.user.name}" %>
+              <% end %>
+              <%= ticket.comment %>
+            <% else %>
+              This user is retired.
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
