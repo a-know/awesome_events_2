@@ -47,4 +47,17 @@ class EventsTest < ApplicationSystemTestCase
     click_on "Create Event"
     assert_selector "div.alert", text: "Event created."
   end
+
+  test "delete event" do
+    sign_in_as(FactoryBot.create(:user))
+    event = FactoryBot.create(:event, owner: current_user)
+    visit event_url(event)
+
+    assert_difference("Event.count", -1) do
+      accept_confirm do
+        click_on "Delete this Event"
+      end
+      assert_selector "div.alert", text: "Event deletion completed."
+    end
+  end
 end
