@@ -55,6 +55,16 @@ jobs:
       name: staging
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.6
+      - name: Install dependencies
+        run: bundle install
       - name: Setup Database
         run: |
           bin/rails db:migrate
