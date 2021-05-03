@@ -14,7 +14,7 @@ module SignInHelper
     when respond_to?(:visit)
       visit root_url
       click_on "Login via GitHub"
-    when respond_to(:get)
+    when respond_to?(:get)
       get "/auth/github/callback"
     else
       raise NotImplementedError.new
