@@ -28,7 +28,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def start_at_should_be_before_end_at
+  def remove_image_if_user_accept
     self.image = nil if ActiveRecord::Type::Boolean.new.cast(remove_image)
   end
 end
