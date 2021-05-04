@@ -12,7 +12,7 @@ class EventTest < ActiveSupport::TestCase
 
   test '#created_by? when owner_id not equals #id of args' do
     event = FactoryBot.create(:event)
-    another_user = FactoryBot.create(:user)
+    another_user = MiniTest::Mock.new.expect(:id, "another_user_id")
     assert_equal(false, event.created_by?(another_user))
   end
 
