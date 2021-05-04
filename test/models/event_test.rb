@@ -3,7 +3,11 @@ require 'test_helper'
 class EventTest < ActiveSupport::TestCase
   test '#created_by? when owner_id equals #id of args' do
     event = FactoryBot.create(:event)
-    assert_equal(true, event.created_by?(event.owner))
+    user = User.new
+    # stub user
+    user.stub(:id, event.owner_id) do
+      assert_equal(true, event.created_by?(user))
+    end
   end
 
   test '#created_by? when owner_id not equals #id of args' do
