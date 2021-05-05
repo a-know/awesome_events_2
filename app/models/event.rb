@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  has_one_attached :image
   has_many :tickets, dependent: :destroy
   belongs_to :owner, class_name: "User"
 
@@ -8,6 +9,10 @@ class Event < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validate :start_at_should_be_before_end_at
+  validates :image, content_type: [:png, :jpg, :jpeg], size: { less_than_or_equal_to: 10.megabytes }, dimension: { width: { max: 2000 }, height: { max: 2000 } }
+
+  attr_accessor :remove_image
+  before_save :remove_image_if_user_accept
 
   def created_by?(user)
     return false unless user
@@ -22,5 +27,9 @@ class Event < ApplicationRecord
     if start_at >= end_at
       errors.add(:start_at, "should be before end")
     end
+  end
+
+  def remove_image_if_user_accept
+    self.image = nil if ActiveRecord::Type::Boolean.new.cast(remove_image)
   end
 end

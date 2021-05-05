@@ -47,5 +47,6 @@ en:
         start_at: Start Date
         end_at: End Date
         content: Content
+        image: Image
       ticket:
         comment: Comment
