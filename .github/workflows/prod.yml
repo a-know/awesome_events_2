@@ -60,7 +60,7 @@ jobs:
         with:
           ruby-version: 2.6.6
       - name: Install dependencies
-        run: bundle install
+        run: bundle install --jobs4 --retry 3
       - name: Setup Database
         run: |
           bin/rails db:migrate
