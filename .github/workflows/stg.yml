@@ -39,8 +39,9 @@ jobs:
       - name: Setup Database
         run: |
           bin/rails db:migrate
-      - name: Run system test
+      - name: Run rubocop and test
         run: |
+          bundle exec rubocop
           bin/rails test
           bin/rails test:system
   deploy:
