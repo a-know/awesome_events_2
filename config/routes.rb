@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   delete "/logout" => "sessions#destroy"
 
   get "status" => 'status#index', defaults: { format: 'json' }
+
+  match "*path" => "application#error404", via: :all
 end
