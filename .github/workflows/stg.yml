@@ -41,6 +41,7 @@ jobs:
           bin/rails db:migrate
       - name: Run system test
         run: |
+          bin/rails test
           bin/rails test:system
   deploy:
     runs-on: ubuntu-latest
