@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: "Please Login."
   end
 
-  def error404(e)
+  def error404(_)
     render "error404", status: 404, formats: [:html]
   end
 
